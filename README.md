@@ -14,6 +14,6 @@ docker network create --driver overlay --subnet 10.0.1.0/24 mqtt
 docker service create --constraint "node.hostname==node1.local" --name emqtt-master --network mqtt -e NODE_IP=emqtt-master rainisto/emqtt
 docker service create --constraint "node.hostname==node2.local" --name emqtt-node1 --network mqtt -e NODE_IP=emqtt-node1 -e MASTER=emqtt-master rainisto/emqtt
 docker service create --constraint "node.hostname==node3.local" --name emqtt-node2 --network mqtt -e NODE_IP=emqtt-node2 -e MASTER=emqtt-master rainisto/emqtt
-docker service create --name haproxy-emqtt --network mqtt -p 1883:1883 rainisto/haproxy-emqtt
+docker service create --name haproxy-emqtt --network mqtt -p 1883:1883 -p 18083:18083 rainisto/haproxy-emqtt
 docker service scale haproxy-emqtt=3
 ```
